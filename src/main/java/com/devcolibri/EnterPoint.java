@@ -21,8 +21,9 @@ public class EnterPoint
         EnterPoint enterPoint = new EnterPoint();
 
         enterPoint.addDev("Adilet", "Ruby Developer", 35000);
-        enterPoint.addDev("Ulan", "Php Developer", 30000);
+//        enterPoint.addDev("Ulan", "Php Developer", 30000);
         enterPoint.updateDev(3, 40000);
+//        enterPoint.removeDev(4);
 
 
         for(Developer developer: enterPoint.listDevs())
@@ -47,9 +48,11 @@ public class EnterPoint
         session.beginTransaction();
 
         Developer dev = new Developer(name, specialty, salary);
-        session.save(dev);
+        Integer devID = (Integer) session.save(dev);
         session.getTransaction().commit();
         session.close();
+
+        System.out.println("New Developer ID is: " + devID);
     }
 
     private void updateDev(int iD, int newSalary){
@@ -59,6 +62,17 @@ public class EnterPoint
         Developer dev = (Developer) session.get(Developer.class, iD);
         dev.setSalary(newSalary);
         session.update(dev);
+
+        transaction.commit();
+        session.close();
+    }
+
+    private void removeDev(int iD){
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+
+        Developer dev = (Developer) session.get(Developer.class, iD);
+        session.delete(dev);
 
         transaction.commit();
         session.close();
