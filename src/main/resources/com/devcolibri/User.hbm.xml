@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+
+<hibernate-mapping>
+    <!--catalog=’kskr’ — это имя БД.
+    table=’user’ — это имя таблицы на которую мы привязываем класс User.java.-->
+    <class name="com.devcolibri.entity.User" table="user" catalog="kskr">
+
+        <id name="userId" type="java.lang.Integer">
+            <column name="USER_ID" />
+            <generator class="identity" />
+        </id>
+        <!--Свойство класса-->
+        <property name="firstName" type="string">
+            <!--Поле таблицы из БД-->
+            <column name="FIRST_NAME" length="20" not-null="true" unique="true" />
+        </property>
+
+        <property name="lastName" type="string">
+            <column name="LAST_NAME" length="20" not-null="true" unique="true" />
+        </property>
+
+    </class>
+</hibernate-mapping>
